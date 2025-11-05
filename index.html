@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hopfield Neural Network</title>
+    <script src="scripts/d3-v5.min.js"></script>
+    <script src="scripts/cv2.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
+    <script src="scripts/jquery.min.js"></script>
+</head>
+<body >
+<header class="header">
+    <div class="header-title"><h1 class="text">Hopfield NN Digit Recovery</h1><span>Designed by: Navid Salahian</span></div>
+
+</header>
+    <div class="hopfield-network" id="app">
+        <div class="hopfield-network__inner">
+            <section class="setting">
+                <div class="overlay hidden"></div>
+                <div class="select-pattern setting-item">
+                    <span class="title">Choose Your Pattern</span>
+                    <div class="images">
+                        <img class="img-pt" data-id="0" id="img1" src="images/1.jpg" alt="">
+                        <img class="img-pt active" data-id="1" id="img2" src="images/2.jpg" alt="">
+                        <img class="img-pt" data-id="2" id="img3" src="images/3.jpg" alt="">
+                        <img class="img-pt" data-id="3" id="img4" src="images/4.jpg" alt="">
+                    </div>
+                </div>
+                <div class="noisy setting-item">
+                    <span class="title">Set Noise Pattern</span>
+                    <div class="slidecontainer">
+                        <input type="range" min="10" max="100" value="20" class="slider" id="slider">
+                        <span id="slider-value">0</span>
+                    </div>
+                </div>
+                <div class="delay setting-item">
+                    <span class="title">Set Delay</span>
+                    <input type="text" class="delay-inp" value="50">
+                    <span class="ms">ms</span>
+                </div>
+                <div class="submit setting-item">
+                    <button class="submit-btn" >Go!</button>
+                </div>
+
+            </section>
+            <div class="h-sep"></div>
+            <section class="animate">
+                <div class="svg-area">
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</body>
+<script src="scripts/config.js"></script>
+
+</html>
