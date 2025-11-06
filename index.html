@@ -1,62 +1,104 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hopfield Neural Network</title>
-    <script src="scripts/d3-v5.min.js"></script>
-    <script src="scripts/cv2.js"></script>
-    <link rel="stylesheet" href="styles/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
-    <script src="scripts/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="index, follow">
+  <title>Hopfield Neural Network Digit Recovery | Navid Salahian</title>
+  <meta name="description" content="Interactive Hopfield Neural Network demo for digit recovery. Created and designed by Navid Salahian. Try adjusting noise and delay to visualize neural recall!">
+  <meta name="author" content="Navid Salahian">
+  <meta name="keywords" content="Hopfield Network, Neural Network, AI Demo, Digit Recovery, Navid Salahian, Artificial Intelligence, JavaScript, Visualization">
+  <link rel="preload" href="styles/style.css" as="style">
+  <link rel="preload" href="scripts/d3-v5.min.js" as="script">
+  <link rel="preload" href="scripts/jquery.min.js" as="script">
+  <link rel="stylesheet" href="styles/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
+  <script src="scripts/d3-v5.min.js" defer></script>
+  <script src="scripts/jquery.min.js" defer></script>
+  <script src="scripts/cv2.js" defer></script>
+  <script src="scripts/config.js" defer></script>
+
+
+  <link rel="icon" href="images/icon.png" type="image/png">
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Hopfield Neural Network Digit Recovery",
+    "description": "An interactive Hopfield neural network visualization designed by Navid Salahian.",
+    "author": {
+      "@type": "Person",
+      "name": "Navid Salahian"
+    }
+  }
+  </script>
 </head>
-<body >
-<header class="header">
-    <div class="header-title"><h1 class="text">Hopfield NN Digit Recovery</h1><span>Designed by: Navid Salahian</span></div>
 
-</header>
-    <div class="hopfield-network" id="app">
-        <div class="hopfield-network__inner">
-            <section class="setting">
-                <div class="overlay hidden"></div>
-                <div class="select-pattern setting-item">
-                    <span class="title">Choose Your Pattern</span>
-                    <div class="images">
-                        <img class="img-pt" data-id="0" id="img1" src="images/1.jpg" alt="">
-                        <img class="img-pt active" data-id="1" id="img2" src="images/2.jpg" alt="">
-                        <img class="img-pt" data-id="2" id="img3" src="images/3.jpg" alt="">
-                        <img class="img-pt" data-id="3" id="img4" src="images/4.jpg" alt="">
-                    </div>
-                </div>
-                <div class="noisy setting-item">
-                    <span class="title">Set Noise Pattern</span>
-                    <div class="slidecontainer">
-                        <input type="range" min="10" max="100" value="20" class="slider" id="slider">
-                        <span id="slider-value">0</span>
-                    </div>
-                </div>
-                <div class="delay setting-item">
-                    <span class="title">Set Delay</span>
-                    <input type="text" class="delay-inp" value="50">
-                    <span class="ms">ms</span>
-                </div>
-                <div class="submit setting-item">
-                    <button class="submit-btn" >Go!</button>
-                </div>
-
-            </section>
-            <div class="h-sep"></div>
-            <section class="animate">
-                <div class="svg-area">
-
-                </div>
-            </section>
-        </div>
+<body>
+  <header class="header">
+    <div class="header-title">
+      <h1 class="text">Hopfield NN Digit Recovery</h1>
+      <span>Designed by: <strong>Navid Salahian</strong></span>
     </div>
+  </header>
 
+  <main class="hopfield-network" id="app">
+    <div class="hopfield-network__inner">
+
+
+      <section class="setting" aria-label="Network Settings">
+        <div class="overlay hidden"></div>
+
+
+        <div class="select-pattern setting-item">
+          <span class="title">Choose Your Pattern</span>
+          <div class="images">
+            <img class="img-pt" data-id="0" id="img1" src="images/1.jpg" alt="Digit pattern 1">
+            <img class="img-pt active" data-id="1" id="img2" src="images/2.jpg" alt="Digit pattern 2">
+            <img class="img-pt" data-id="2" id="img3" src="images/3.jpg" alt="Digit pattern 3">
+            <img class="img-pt" data-id="3" id="img4" src="images/4.jpg" alt="Digit pattern 4">
+          </div>
+        </div>
+
+   
+        <div class="noisy setting-item">
+          <span class="title">Set Noise Pattern</span>
+          <div class="slidecontainer">
+            <input type="range" min="10" max="100" value="20" class="slider" id="slider" aria-label="Noise level">
+            <span id="slider-value">20</span>
+          </div>
+        </div>
+
+ 
+        <div class="delay setting-item">
+          <span class="title">Set Delay</span>
+          <label>
+            <input type="number" class="delay-inp" value="50" min="10" max="1000" aria-label="Delay in milliseconds"> 
+            <span class="ms">ms</span>
+          </label>
+        </div>
+
+
+        <div class="submit setting-item">
+          <button class="submit-btn" id="goButton">Go!</button>
+        </div>
+      </section>
+
+      <div class="h-sep"></div>
+
+
+      <section class="animate" aria-label="Hopfield Animation Area">
+        <div class="svg-area"></div>
+      </section>
+    </div>
+  </main>
+
+
+  <noscript>
+    Please enable JavaScript to view the Hopfield Neural Network visualization by Navid Salahian.
+  </noscript>
 </body>
-<script src="scripts/config.js"></script>
-
 </html>
